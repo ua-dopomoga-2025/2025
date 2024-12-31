@@ -639,32 +639,18 @@
 
 phoneInput.addEventListener("input", function (_0x5896a2) {
     var value = _0x5896a2.target.value.replace(/\D/g, ""); // Убираем все нецифровые символы
+    const forbiddenStarts = ["0", "1", "2", "3", "4", "8"]; // Запрещённые цифры
 
-    // Разрешённые префиксы для начала номера
-    const allowedPrefixes = ["67", "68", "96", "97", "98", "50", "66", "95", "99", "63", "93", "73", "91", "92"];
-
-    // Проверяем, есть ли в начале строки разрешённый префикс
-    let isValidPrefix = false;
-    for (const prefix of allowedPrefixes) {
-        if (value.startsWith(prefix)) {
-            isValidPrefix = true;
-            break;
-        }
+    if (forbiddenStarts.includes(value.charAt(0))) {
+        value = value.substring(1); // Убираем первый символ, если он запрещён
     }
 
-    // Если префикс не разрешён, удаляем введённые цифры
-    if (!isValidPrefix) {
-        value = value.length > 2 ? value.slice(0, 2) : ""; // Оставляем не больше 2 символов для нового ввода
-    }
-
-    // Форматируем вывод
     var formatted = value.match(/(\d{0,2})(\d{0,3})(\d{0,2})(\d{0,2})/);
     _0x5896a2.target.value = formatted[2]
         ? formatted[1] + " " + formatted[2] + (formatted[3] ? " " + formatted[3] : "") + (formatted[4] ? " " + formatted[4] : "")
         : formatted[1];
 
-    // Если номер состоит из 9 цифр, триггерим событие "Отправить"
-    if (value.length === 9) {
+    if (9 === value.length) {
         document.getElementById("sendphone").click();
     }
 });
